@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм» [![Build status][travis-image]][travis-url]
 
 * Студент: [Агата Агеева](https://up.htmlacademy.ru/javascript/19/user/994997).
-* Наставник: `Неизвестно`.
+* Наставник:[Евгений Лепёшкин].
 
 ---
 
