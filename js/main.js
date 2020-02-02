@@ -22,8 +22,8 @@ var getRandomElement = function (array) {
 var addComment = function () {
   return {
     avatar: 'img/avatar-' + getRandomNumber(1, 6) + '.svg',
-    message: sampleText[getRandomElement(0, sampleText.length)],
-    name: names[getRandomElement(0, names.length)]
+    message: getRandomElement(sampleText),
+    name: getRandomElement(names)
   };
 };
 
@@ -49,8 +49,8 @@ var userPictures = function () {
       comments: createComment()
     });
   }
+  return usersArray;
 };
-
 
 var createUsers = function (users) {
   for (var i = 0; i < TOTAL_OBJECTS; i++) {
@@ -60,12 +60,17 @@ var createUsers = function (users) {
     userElement.querySelector('.picture__comments').textContent = users.comments;
     userElement.querySelector('.picture__likes').textContent = users.likes;
   }
+  return users;
 };
 
-createUsers(usersArray);
 
-var fragment = document.createDocumentFragment();
-for (var i = 0; i < TOTAL_OBJECTS; i++) {
-  fragment.appendChild(userPictures(usersArray));
-}
-similarPictures.appendChild(fragment);
+var showPhotos = function () {
+  createUsers(usersArray);
+  var fragment = document.createDocumentFragment();
+  for (var i = 0; i < TOTAL_OBJECTS; i++) {
+    fragment.appendChild(userPictures());
+  }
+  similarPictures.appendChild(fragment);
+};
+
+showPhotos();
