@@ -5,6 +5,9 @@ var TOTAL_OBJECTS = 25;
 var minLikes = 15;
 var maxLikes = 200;
 var maxComments = 5;
+var avatarMinNumber = 1;
+var avatarMaxNumber = 6;
+
 
 // куда создаем шаблон
 var similarPictures = document.querySelector('.pictures');
@@ -23,7 +26,7 @@ var getRandomElement = function (array) {
 
 var addComment = function () {
   return {
-    avatar: 'img/avatar-' + getRandomNumber(1, 6) + '.svg',
+    avatar: 'img/avatar-' + getRandomNumber(avatarMinNumber, avatarMaxNumber) + '.svg',
     message: getRandomElement(sampleText),
     name: getRandomElement(names)
   };
@@ -43,7 +46,7 @@ var usersData = function () {
   var usersArray = [];
   for (var i = 0; i < TOTAL_OBJECTS; i++) {
     usersArray.push({
-      url: 'photos/' + (i + 1) + '.jpg',
+      url: 'photos/' + (i + avatarMinNumber) + '.jpg',
       description: 'Описание фотографии',
       likes: getRandomNumber(minLikes, maxLikes),
       comments: createComments()
@@ -62,10 +65,10 @@ var renderUser = function (user) {
 
 
 var showPhotos = function () {
-  var users = usersData();
+  var pictures = usersData();
   var fragment = document.createDocumentFragment();
   for (var i = 0; i < TOTAL_OBJECTS; i++) {
-    fragment.appendChild(renderUser(users[i]));
+    fragment.appendChild(renderUser(pictures[i]));
   }
   similarPictures.appendChild(fragment);
 };
