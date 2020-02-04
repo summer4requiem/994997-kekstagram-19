@@ -31,8 +31,6 @@ addClassName(bodyDocument, 'modal-open');
 addClassName(loaderBtn, 'hidden');
 
 
-// var socialComment = document.querySelector('.social__comment');
-
 var getRandomNumber = function (min, max) {
   return Math.floor(Math.random() * (max - min) + min);
 };
@@ -110,6 +108,9 @@ var renderFullScreenPhoto = function (userData) {
   fullScreenPreview.querySelector('.social__caption').textContent = userData.description;
   fullScreenPreview.querySelector('.likes-count').textContent = userData.likes;
   fullScreenPreview.querySelector('.comments-count').textContent = userData.comments.length;
+  for (var i = 0; i < maxComments; i++) {
+    socialComments.appendChild(generateFullScreenComment());
+  }
 };
 
 
@@ -129,8 +130,5 @@ var showPhotos = function () {
   showFullPhoto(pictures);
 };
 
-for (var i = 0; i < maxComments; i++) {
-  socialComments.appendChild(generateFullScreenComment());
-}
 
 showPhotos();
