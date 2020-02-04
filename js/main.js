@@ -8,12 +8,30 @@ var maxComments = 5;
 var avatarMinNumber = 1;
 var avatarMaxNumber = 6;
 
-
-// куда создаем шаблон
 var similarPictures = document.querySelector('.pictures');
-// чем заполняем шаблон
 var templatePicture = document.querySelector('#picture').content.querySelector('.picture');
+var loaderBtn = document.querySelector('.comments-loader');
+var fullScreenPhoto = document.querySelector('.big-picture');
+var fullScreenPreview = document.querySelector('.big-picture__preview');
+var bodyDocument = document.body;
+var socialComments = document.querySelector('.social__comments');
 
+
+var addVisible = function (className) {
+  className.classList.remove('hidden');
+};
+
+
+var addClassName = function (className, assign) {
+  className.classList.add(assign);
+};
+
+addVisible(fullScreenPhoto);
+addClassName(bodyDocument, 'modal-open');
+addClassName(loaderBtn, 'hidden');
+
+
+// var socialComment = document.querySelector('.social__comment');
 
 var getRandomNumber = function (min, max) {
   return Math.floor(Math.random() * (max - min) + min);
@@ -32,6 +50,7 @@ var addComment = function () {
   };
 };
 
+
 var createComments = function () {
   var comments = [];
   for (var i = 0; i < maxComments; i++) {
@@ -41,7 +60,6 @@ var createComments = function () {
 };
 
 
-// функция для создания массива из 25 сгенерированных JS объектов
 var usersData = function () {
   var usersArray = [];
   for (var i = 0; i < TOTAL_OBJECTS; i++) {
@@ -55,6 +73,7 @@ var usersData = function () {
   return usersArray;
 };
 
+
 var renderUser = function (user) {
   var userElement = templatePicture.cloneNode(true);
   userElement.querySelector('.picture__img').src = user.url;
@@ -64,13 +83,54 @@ var renderUser = function (user) {
 };
 
 
+var generateFullScreenComment = function () {
+  var container = document.createElement('li');
+  container.classList.add('social__comment');
+
+  var commentImg = document.createElement('img');
+  commentImg.classList.add('social__picture');
+  commentImg.style.width = '35px';
+  commentImg.style.height = '35px';
+  commentImg.src = 'img/avatar-' + getRandomNumber(avatarMinNumber, avatarMaxNumber) + '.svg';
+
+  var text = document.createElement('p');
+  text.classList.add('social__text');
+  text.textContent = getRandomElement(sampleText);
+
+  container.appendChild(commentImg);
+  container.appendChild(text);
+
+  return container;
+};
+
+
+var renderFullScreenPhoto = function (userData) {
+  fullScreenPreview.querySelector('.big-picture__img img').src = userData.url;
+  fullScreenPreview.querySelector('.big-picture__img img').alt = userData.description;
+  fullScreenPreview.querySelector('.social__caption').textContent = userData.description;
+  fullScreenPreview.querySelector('.likes-count').textContent = userData.likes;
+  fullScreenPreview.querySelector('.comments-count').textContent = userData.comments.length;
+};
+
+
+var showFullPhoto = function (usersDta) {
+  renderFullScreenPhoto(usersDta[0]);
+};
+
+
 var showPhotos = function () {
   var pictures = usersData();
   var fragment = document.createDocumentFragment();
   for (var i = 0; i < TOTAL_OBJECTS; i++) {
     fragment.appendChild(renderUser(pictures[i]));
   }
+
   similarPictures.appendChild(fragment);
+  showFullPhoto(pictures);
 };
+
+for (var i = 0; i < maxComments; i++) {
+  socialComments.appendChild(generateFullScreenComment());
+}
 
 showPhotos();
