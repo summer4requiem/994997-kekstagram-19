@@ -8,17 +8,29 @@ var maxComments = 5;
 var avatarMinNumber = 1;
 var avatarMaxNumber = 6;
 
-// куда создаем шаблон
 var similarPictures = document.querySelector('.pictures');
-// чем заполняем шаблон
 var templatePicture = document.querySelector('#picture').content.querySelector('.picture');
-
-// Показываем фото на весь экран
+var loaderBtn = document.querySelector('.comments-loader');
 var fullScreenPhoto = document.querySelector('.big-picture');
 var fullScreenPreview = document.querySelector('.big-picture__preview');
-fullScreenPhoto.classList.remove('hidden');
-
+var bodyDocument = document.body;
 var socialComments = document.querySelector('.social__comments');
+
+
+var addVisible = function (className) {
+  className.classList.remove('hidden');
+};
+
+
+var addClassName = function (className, assign) {
+  className.classList.add(assign);
+};
+
+addVisible(fullScreenPhoto);
+addClassName(bodyDocument, 'modal-open');
+addClassName(loaderBtn, 'hidden');
+
+
 // var socialComment = document.querySelector('.social__comment');
 
 var getRandomNumber = function (min, max) {
@@ -41,7 +53,6 @@ var addComment = function () {
 
 var createComments = function () {
   var comments = [];
-
   for (var i = 0; i < maxComments; i++) {
     comments.push(addComment());
   }
@@ -112,7 +123,6 @@ var showPhotos = function () {
   var fragment = document.createDocumentFragment();
   for (var i = 0; i < TOTAL_OBJECTS; i++) {
     fragment.appendChild(renderUser(pictures[i]));
-
   }
 
   similarPictures.appendChild(fragment);
@@ -122,4 +132,5 @@ var showPhotos = function () {
 for (var i = 0; i < maxComments; i++) {
   socialComments.appendChild(generateFullScreenComment());
 }
+
 showPhotos();
