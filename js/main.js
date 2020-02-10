@@ -9,6 +9,7 @@ var avatarMinNumber = 1;
 var avatarMaxNumber = 6;
 var MAX_HASHTAGS = 5;
 var MAX_HASHTAG_LENGTH = 20;
+var ESC_KEY = 'Escape';
 
 
 var similarPictures = document.querySelector('.pictures');
@@ -18,10 +19,9 @@ var fullScreenPhoto = document.querySelector('.big-picture');
 var fullScreenPreview = document.querySelector('.big-picture__preview');
 var bodyDocument = document.body;
 var socialComments = document.querySelector('.social__comments');
-var bigPictureCancel = fullScreenPreview.querySelector('.big-picture__cancel');
+var bigPictureCancel = fullScreenPreview.querySelector('.cancel');
 var uploadFile = document.querySelector('.img-upload__input');
 var uploadOverlay = document.querySelector('.img-upload__overlay');
-var imgUploadCancel = document.querySelector('.img-upload__cancel');
 var effectsRadio = document.querySelectorAll('.effects__radio');
 var imgUploadPreview = document.querySelector('.img-upload__preview img');
 var effectLevelPin = document.querySelector('.effect-level__pin');
@@ -30,10 +30,17 @@ var textHashtags = document.querySelector('.text__hashtags');
 var effecIntensity = document.querySelector('.effect-level__depth');
 var scaleSmoller = document.querySelector('.scale__control--smaller');
 var scaleBigger = document.querySelector('.scale__control--bigger');
-// var scaleValue = document.querySelector('.scale__control--value');
+var scaleValue = document.querySelector('.scale__control--value');
 
 
-textHashtags.addEventListener('submit', function () {
+bigPictureCancel.addEventListener('keydown', function (evt) {
+  if (evt.key === ESC_KEY) {
+    fullScreenPreview.classList.add('hidden');
+    fullScreenPhoto.classList.remove('overlay');
+  }
+});
+
+textHashtags.addEventListener('change', function () {
   var inputText = textHashtags.value.toLowerCase().trim();
   if (!inputText) {
     return;
@@ -44,9 +51,10 @@ textHashtags.addEventListener('submit', function () {
   var isStartNoHashTag = inputArray.some(function (item) {
     return item[0] !== '#';
   });
+  // в любом случае срабатывает
 
   if (isStartNoHashTag) {
-    textHashtags.setCastomVlidity('хэш-тег должен начинаться с символа #');
+    textHashtags.setCustomValidity('хэш-тег должен начинаться с символа #');
   }
 
   var isSplitSpaceHashtag = inputArray.some(function (item) {
@@ -54,7 +62,7 @@ textHashtags.addEventListener('submit', function () {
   });
 
   if (isSplitSpaceHashtag) {
-    textHashtags.setCastomVlidity('хэш-теги разделяются пробелами');
+    textHashtags.setCustomValidity('хэш-теги разделяются пробелами');
   }
 
   var isRepeatHashTag = inputArray.some(function (item, i, array) {
@@ -62,7 +70,7 @@ textHashtags.addEventListener('submit', function () {
   });
 
   if (isRepeatHashTag) {
-    textHashtags.setCastomVlidity('один и тот же хеш-тег не может быть использован дважды');
+    textHashtags.setCustomValidity('один и тот же хеш-тег не может быть использован дважды');
   }
 
   var isLongHashTag = inputArray.some(function (item) {
@@ -70,10 +78,10 @@ textHashtags.addEventListener('submit', function () {
   });
 
   if (isLongHashTag) {
-    textHashtags.setCastomVlidity('максимальная длина одного хэш-тега 20 символов, включая решетку');
+    textHashtags.setCustomValidity('максимальная длина одного хэш-тега 20 символов, включая решетку');
   }
   if (inputArray.length > MAX_HASHTAGS) {
-    textHashtags.setCastomVlidity('нельзя указать больше 5 хеш-тегов');
+    textHashtags.setCustomValidity('нельзя указать больше 5 хеш-тегов');
   }
 });
 
@@ -95,21 +103,19 @@ effectsRadio.forEach(function (element) {
 
 
 scaleSmoller.addEventListener('click', function () {
-  imgUploadPreview.style.transform = 'scale(0.9)';
+  imgUploadPreview.style.transform = 'scale(0.75)';
+  scaleValue.value = 75 + '%';
 });
 
+// не понимаю какой тут должен быть скейл, выглядит ужасно при любом :/
 scaleBigger.addEventListener('click', function () {
   imgUploadPreview.style.transform = 'scale(1)';
+  scaleValue.value = 100 + '%';
 });
 
 uploadFile.addEventListener('click', function (evt) {
   evt.preventDefault();
   uploadOverlay.classList.remove('hidden');
-});
-
-
-imgUploadCancel.addEventListener('click', function () {
-  uploadOverlay.classList.add('hidden');
 });
 
 var addVisible = function (className) {
