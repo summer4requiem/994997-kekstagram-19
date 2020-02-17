@@ -59,25 +59,14 @@ var onUploadEscKeyDown = function (evt) {
   if (evt.key === ESC_KEY && !evt.target.classList.contains('text__hashtags') && !evt.target.classList.contains('text__description')) {
     imgUploadOverlay.classList.add('hidden');
     bodyDocument.classList.remove('modal-open');
-
     document.removeEventListener('keydown', onUploadEscKeyDown);
   }
 };
-
 
 imgUploadCancel.addEventListener('click', function () {
   imgUploadOverlay.classList.add('hidden');
   bodyDocument.classList.remove('modal-open');
 });
-
-// socialFooterText.addEventListener('input', function () {
-//   var commentLength = socialFooterText.value.some(function (item) {
-//     return item.length > 140;
-//   });
-//   if (commentLength) {
-//     socialFooterText.setCustomValidity('1459');
-//   }
-// });
 
 
 textHashtags.addEventListener('input', function () {
@@ -196,23 +185,11 @@ uploadFile.addEventListener('click', function () {
   document.addEventListener('keydown', onUploadEscKeyDown);
 });
 
-var addVisible = function (className) {
-  className.classList.remove('hidden');
-};
-
-var addClassName = function (className, assign) {
-  className.classList.add(assign);
-};
 
 bigPictureCancel.addEventListener('click', function () {
   bodyDocument.classList.remove('modal-open');
-  addClassName(fullScreenPhoto, 'hidden');
+  fullScreenPhoto.classList.add('hidden');
 });
-
-
-addVisible(fullScreenPhoto);
-addClassName(bodyDocument, 'modal-open');
-addClassName(loaderBtn, 'hidden');
 
 
 var getRandomNumber = function (min, max) {
@@ -265,6 +242,8 @@ var renderPicture = function (picture, index) {
 
   userElement.addEventListener('click', function () {
     renderFullScreenPhoto(picture);
+    fullScreenPhoto.classList.remove('hidden');
+    loaderBtn.classList.add('hidden');
   });
 
   return userElement;
@@ -302,7 +281,6 @@ var renderFullScreenPhoto = function (userData) {
     socialComments.appendChild(generateFullScreenComment());
   }
 
-  fullScreenPhoto.classList.remove('hidden');
 };
 
 
