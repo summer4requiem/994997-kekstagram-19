@@ -12,7 +12,7 @@
     userElement.tabIndex = index;
 
     userElement.addEventListener('click', function () {
-      window.bigPicture(picture);
+      window.bigPicture.render(picture);
     });
 
     return userElement;
