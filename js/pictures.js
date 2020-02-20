@@ -26,7 +26,6 @@
     }
 
     similarPictures.appendChild(fragment);
-    // showFullPhoto(pictures);
   };
 
   showPhotos();

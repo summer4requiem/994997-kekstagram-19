@@ -43,6 +43,7 @@
   };
 
   var renderFullScreenPhoto = function (userData) {
+    fullScreenPreview.querySelector('.big-picture__img img').src = userData.url;
     fullScreenPreview.querySelector('.big-picture__img img').alt = userData.description;
     fullScreenPreview.querySelector('.social__caption').textContent = userData.description;
     fullScreenPreview.querySelector('.likes-count').textContent = userData.likes;
