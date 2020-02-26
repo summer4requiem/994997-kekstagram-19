@@ -40,4 +40,5 @@
 
   scaleSmoller.addEventListener('click', onScaleDec);
   scaleBigger.addEventListener('click', onScaleInc);
+
 })();

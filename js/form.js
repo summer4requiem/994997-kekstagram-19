@@ -44,20 +44,19 @@
     }
   };
 
-  var changeEffectRadio = function (evt) {
+  var onChangeEffectRadio = function (evt) {
     if (currentFilter !== '') {
       imgUploadPreview.classList.remove(currentFilter);
     }
-
     currentFilter = evt.target.value !== 'none' ? 'effects__preview--' + evt.target.value : '';
 
     if (currentFilter === '') {
       effectLevel.classList.add('hidden');
     } else {
+      imgUploadPreview.classList.add(currentFilter);
       effectLevel.classList.remove('hidden');
     }
 
-    imgUploadPreview.classList.add(currentFilter);
     effectLevelPin.style.left = '100%';
     effecIntensity.style.width = '100%';
     imgUploadPreview.style.filter = '';
@@ -65,9 +64,12 @@
   };
 
   effectLevel.classList.add('hidden');
-
   // события на эффекты
   effectsRadio.forEach(function (element) {
-    element.addEventListener('change', changeEffectRadio);
+    element.addEventListener('change', onChangeEffectRadio);
   });
+
+  window.currentFilter = function () {
+    return currentFilter;
+  };
 })();
