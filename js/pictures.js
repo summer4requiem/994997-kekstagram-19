@@ -18,15 +18,16 @@
     return userElement;
   };
 
-  var showPhotos = function () {
-    var pictures = window.data;
-    var fragment = document.createDocumentFragment();
-    for (var i = 0; i < window.data.length; i++) {
-      fragment.appendChild(renderPicture(pictures[i], i));
-    }
+  window.load(function (pictures) {
+    var showPhotos = function () {
+      var fragment = document.createDocumentFragment();
+      for (var i = 0; i < window.data.length; i++) {
+        fragment.appendChild(renderPicture(pictures[i], i));
+      }
 
-    similarPictures.appendChild(fragment);
-  };
+      similarPictures.appendChild(fragment);
+    };
+    showPhotos();
+  });
 
-  showPhotos();
 })();
