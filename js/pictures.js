@@ -14,17 +14,15 @@
     userElement.addEventListener('click', function () {
       window.bigPicture.render(picture);
     });
-
     return userElement;
   };
 
-  window.load(function (pictures) {
+  window.sendRequest(function (pictures) {
     var showPhotos = function () {
       var fragment = document.createDocumentFragment();
       for (var i = 0; i < window.data.length; i++) {
         fragment.appendChild(renderPicture(pictures[i], i));
       }
-
       similarPictures.appendChild(fragment);
     };
     showPhotos();

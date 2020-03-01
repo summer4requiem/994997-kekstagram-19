@@ -1,13 +1,15 @@
 'use strict';
 
 (function () {
+  var SUCCESS_CODE = 200;
   var URL = 'https://js.dump.academy/kekstagram/data';
-  window.load = function (onSuccess, onError) {
+
+  window.sendRequest = function (onSuccess, onError) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
     xhr.open('GET', URL);
     xhr.addEventListener('load', function () {
-      if (xhr.status === 200) {
+      if (xhr.status === SUCCESS_CODE) {
         onSuccess(xhr.response);
       } else {
         onError('Статус ответа: ' + xhr.status + '' + xhr.statusText);
