@@ -2,7 +2,6 @@
 
 (function () {
   var SUCCESS_CODE = 200;
-  var ERROR_CODE = 404;
   var URL = 'https://js.dump.academy/kekstagram/data';
 
   window.sendRequest = function (onSuccess, onError) {
@@ -17,9 +16,7 @@
       }
     });
     xhr.addEventListener('error', function () {
-      if (xhr.status === ERROR_CODE) {
-        onError('Ошибка соединения');
-      }
+      onError('Ошибка соединения');
     });
     xhr.addEventListener('timeout', function () {
       onError('Запрос не успел выполниться за' + xhr.timeout + 'мс');
