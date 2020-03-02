@@ -18,14 +18,10 @@
   };
 
   window.sendRequest(function (pictures) {
-    var showPhotos = function () {
-      var fragment = document.createDocumentFragment();
-      for (var i = 0; i < window.data.length; i++) {
-        fragment.appendChild(renderPicture(pictures[i], i));
-      }
-      similarPictures.appendChild(fragment);
-    };
-    showPhotos();
+    var fragment = document.createDocumentFragment();
+    for (var i = 0; i < window.data.length; i++) {
+      fragment.appendChild(renderPicture(pictures[i], i));
+    }
+    similarPictures.appendChild(fragment);
   });
-
 })();
