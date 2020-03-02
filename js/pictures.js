@@ -3,6 +3,8 @@
 (function () {
   var templatePicture = document.querySelector('#picture').content.querySelector('.picture');
   var similarPictures = document.querySelector('.pictures');
+  var templateError = document.querySelector('#error').content.querySelector('.error');
+  var tagMain = document.querySelector('main');
 
   var renderPicture = function (picture, index) {
     var userElement = templatePicture.cloneNode(true);
@@ -14,19 +16,23 @@
     userElement.addEventListener('click', function () {
       window.bigPicture.render(picture);
     });
-
     return userElement;
   };
 
-  var showPhotos = function () {
-    var pictures = window.data;
+  var successHandler = function (pictures) {
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < window.data.length; i++) {
       fragment.appendChild(renderPicture(pictures[i], i));
     }
-
     similarPictures.appendChild(fragment);
   };
 
-  showPhotos();
+  var errorHandler = function (errorMessage) {
+    var reporteError = templateError.cloneNode(true);
+    templateError.querySelector('.error__title').textContent = errorMessage;
+    tagMain.append(reporteError);
+  };
+
+  window.sendRequest(successHandler, errorHandler);
+
 })();
