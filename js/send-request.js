@@ -2,6 +2,7 @@
 
 (function () {
   var SUCCESS_CODE = 200;
+  var ERROR_CODE = 404;
   var URL = 'https://js.dump.academy/kekstagram/data';
 
   window.sendRequest = function (onSuccess, onError) {
@@ -15,6 +16,15 @@
         onError('Статус ответа: ' + xhr.status + '' + xhr.statusText);
       }
     });
+    xhr.addEventListener('error', function () {
+      if (xhr.status === ERROR_CODE) {
+        onError('Ошибка соединения');
+      }
+    });
+    xhr.addEventListener('timeout', function () {
+      onError('Запрос не успел выполниться за' + xhr.timeout + 'мс');
+    });
+    xhr.timeout = 10000;
     xhr.send();
   };
 })();
