@@ -32,7 +32,8 @@
     var reporteError = templateError.cloneNode(true);
     templateError.querySelector('.error__title').textContent = errorMessage;
     tagMain.appendChild(reporteError);
-    errorButton.onClick = ('click', function () {
+    errorButton.addEventListener('click', function () {
+      console.log('нажата');
       reporteError.classList.add('hidden');
     });
   };
