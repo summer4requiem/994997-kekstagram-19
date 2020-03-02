@@ -5,6 +5,7 @@
   var similarPictures = document.querySelector('.pictures');
   var templateError = document.querySelector('#error').content.querySelector('.error');
   var tagMain = document.querySelector('main');
+  var errorButton = templateError.querySelector('.error__button');
 
   var renderPicture = function (picture, index) {
     var userElement = templatePicture.cloneNode(true);
@@ -30,7 +31,10 @@
   var errorHandler = function (errorMessage) {
     var reporteError = templateError.cloneNode(true);
     templateError.querySelector('.error__title').textContent = errorMessage;
-    tagMain.append(reporteError);
+    tagMain.appendChild(reporteError);
+    errorButton.onClick = ('click', function () {
+      reporteError.classList.add('hidden');
+    });
   };
 
   window.sendRequest(successHandler, errorHandler);
