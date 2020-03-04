@@ -2,6 +2,7 @@
 (function () {
   // модуль, который работает с формой редактирования изображения.
   var currentFilter = '';
+  var imgUploadForm = document.querySelector('.img-upload__form');
   var effectLevelPin = document.querySelector('.effect-level__pin');
   var effectValue = document.querySelector('.effect-level__value');
   var effecIntensity = document.querySelector('.effect-level__depth');
@@ -11,11 +12,16 @@
   var imgUploadPreview = imageUpload.querySelector('.img-upload__preview');
   var imgUploadCancel = document.querySelector('.img-upload__cancel');
   var uploadFile = document.querySelector('.img-upload__input');
+  var submitBtn = imgUploadForm.querySelector('.img-upload__submit');
   var uploadOverlay = document.querySelector('.img-upload__overlay');
   var imgUploadOverlay = imageUpload.querySelector('.img-upload__overlay');
   var bodyDocument = document.querySelector('body');
-
   var textDescription = imageUpload.querySelector('.text__description');
+
+  submitBtn.addEventListener('submit', function (evt, onSuccess) {
+    evt.preventDefault();
+    window.backend.upload(onSuccess, new FormData(imgUploadForm));
+  });
 
 
   textDescription.addEventListener('invalid', function () {
@@ -49,6 +55,7 @@
       imgUploadPreview.classList.remove(currentFilter);
     }
     currentFilter = evt.target.value !== 'none' ? 'effects__preview--' + evt.target.value : '';
+
     if (currentFilter === '') {
       effectLevel.classList.add('hidden');
     } else {

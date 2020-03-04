@@ -3,8 +3,9 @@
 (function () {
   var templatePicture = document.querySelector('#picture').content.querySelector('.picture');
   var similarPictures = document.querySelector('.pictures');
-  var templateError = document.querySelector('#error').content.querySelector('.error');
   var tagMain = document.querySelector('main');
+  var templateSuccess = document.querySelector('#success').content.querySelector('.success');
+
 
   var renderPicture = function (picture, index) {
     var userElement = templatePicture.cloneNode(true);
@@ -19,20 +20,32 @@
     return userElement;
   };
 
+
   var successHandler = function (pictures) {
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < window.data.length; i++) {
       fragment.appendChild(renderPicture(pictures[i], i));
     }
     similarPictures.appendChild(fragment);
+    var reportSuccess = templateSuccess.cloneNode(true);
+    var successButton = reportSuccess.querySelector('.success__button');
+    tagMain.appendChild(reportSuccess);
+
+    var onSuccessKeyDown = function (evt) {
+      if (evt.key === window.utils.ESC_KEY) {
+        tagMain.removeChild(reportSuccess);
+        document.removeEventListener('keydown', onSuccessKeyDown);
+      }
+    };
+
+    successButton.addEventListener('click', function (evt) {
+      if (evt.target.classList.contains('success') || evt.target.classList.contains('success__button')) {
+        tagMain.removeChild(reportSuccess);
+        document.removeEventListener('keydown', onSuccessKeyDown);
+      }
+    });
+    document.removeEventListener('keydown', onSuccessKeyDown);
   };
 
-  var errorHandler = function (errorMessage) {
-    var reporteError = templateError.cloneNode(true);
-    templateError.querySelector('.error__title').textContent = errorMessage;
-    tagMain.append(reporteError);
-  };
-
-  window.sendRequest(successHandler, errorHandler);
-
+  window.backend.load(successHandler);
 })();
