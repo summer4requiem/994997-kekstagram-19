@@ -4,7 +4,7 @@
   var SUCCESS_CODE = 200;
   var TIME_OUT = 10000;
   var GET_URL = 'https://js.dump.academy/kekstagram/data';
-  var POST_URL = 'https://js.dump.academy/kekstagram/';
+  var POST_URL = 'https://js.dump.academy/kekstagram';
   var templateError = document.querySelector('#error').content.querySelector('.error');
   var tagMain = document.querySelector('main');
 
