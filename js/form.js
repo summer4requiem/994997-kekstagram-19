@@ -49,7 +49,6 @@
       imgUploadPreview.classList.remove(currentFilter);
     }
     currentFilter = evt.target.value !== 'none' ? 'effects__preview--' + evt.target.value : '';
-
     if (currentFilter === '') {
       effectLevel.classList.add('hidden');
     } else {
