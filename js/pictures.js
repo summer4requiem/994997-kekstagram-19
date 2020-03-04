@@ -28,7 +28,6 @@
     }
     similarPictures.appendChild(fragment);
     var reportSuccess = templateSuccess.cloneNode(true);
-    var successButton = reportSuccess.querySelector('.success__button');
     tagMain.appendChild(reportSuccess);
 
     var onSuccessKeyDown = function (evt) {
@@ -38,7 +37,7 @@
       }
     };
 
-    successButton.addEventListener('click', function (evt) {
+    reportSuccess.addEventListener('click', function (evt) {
       if (evt.target.classList.contains('success') || evt.target.classList.contains('success__button')) {
         tagMain.removeChild(reportSuccess);
         document.removeEventListener('keydown', onSuccessKeyDown);
