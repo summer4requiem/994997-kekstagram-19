@@ -1,10 +1,9 @@
 'use strict';
 // отрисовк миниатюры;
 (function () {
+  var MAX_PICTURES_AMOUNT = 25;
   var templatePicture = document.querySelector('#picture').content.querySelector('.picture');
   var similarPictures = document.querySelector('.pictures');
-  var templateError = document.querySelector('#error').content.querySelector('.error');
-  var tagMain = document.querySelector('main');
 
   var renderPicture = function (picture, index) {
     var userElement = templatePicture.cloneNode(true);
@@ -21,18 +20,11 @@
 
   var successHandler = function (pictures) {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < window.data.length; i++) {
+    for (var i = 0; i < MAX_PICTURES_AMOUNT; i++) {
       fragment.appendChild(renderPicture(pictures[i], i));
     }
     similarPictures.appendChild(fragment);
   };
 
-  var errorHandler = function (errorMessage) {
-    var reporteError = templateError.cloneNode(true);
-    templateError.querySelector('.error__title').textContent = errorMessage;
-    tagMain.append(reporteError);
-  };
-
-  window.sendRequest(successHandler, errorHandler);
-
+  window.backend.load(successHandler);
 })();

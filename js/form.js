@@ -2,6 +2,7 @@
 (function () {
   // модуль, который работает с формой редактирования изображения.
   var currentFilter = '';
+  var imgUploadForm = document.querySelector('.img-upload__form');
   var effectLevelPin = document.querySelector('.effect-level__pin');
   var effectValue = document.querySelector('.effect-level__value');
   var effecIntensity = document.querySelector('.effect-level__depth');
@@ -11,12 +12,42 @@
   var imgUploadPreview = imageUpload.querySelector('.img-upload__preview');
   var imgUploadCancel = document.querySelector('.img-upload__cancel');
   var uploadFile = document.querySelector('.img-upload__input');
+  var submitBtn = imgUploadForm.querySelector('.img-upload__submit');
   var uploadOverlay = document.querySelector('.img-upload__overlay');
   var imgUploadOverlay = imageUpload.querySelector('.img-upload__overlay');
   var bodyDocument = document.querySelector('body');
-
   var textDescription = imageUpload.querySelector('.text__description');
+  var tagMain = document.querySelector('main');
+  var templateSuccess = document.querySelector('#success').content.querySelector('.success');
 
+  submitBtn.addEventListener('click', function (evt) {
+    evt.preventDefault();
+    window.backend.upload(onSuccess, new FormData(imgUploadForm));
+    uploadFile.value = '';
+    uploadOverlay.classList.add('hidden');
+  });
+
+  var onSuccess = function () {
+    var reportSuccess = templateSuccess.cloneNode(true);
+    tagMain.appendChild(reportSuccess);
+
+
+    var onSuccessKeyDown = function (evt) {
+      if (evt.key === window.utils.ESC_KEY) {
+        tagMain.removeChild(reportSuccess);
+        document.removeEventListener('keydown', onSuccessKeyDown);
+      }
+    };
+
+    reportSuccess.addEventListener('click', function (evt) {
+      if (evt.target.classList.contains('success') || evt.target.classList.contains('success__button')) {
+        tagMain.removeChild(reportSuccess);
+        document.removeEventListener('keydown', onSuccessKeyDown);
+      }
+
+    });
+    document.removeEventListener('keydown', onSuccessKeyDown);
+  };
 
   textDescription.addEventListener('invalid', function () {
     if (textDescription.validity.tooLong) {
@@ -27,7 +58,7 @@
   });
 
   imgUploadCancel.addEventListener('click', function () {
-    imgUploadOverlay.classList.add('hidden');
+    imgUploadForm.reset();
     bodyDocument.classList.remove('modal-open');
   });
 
