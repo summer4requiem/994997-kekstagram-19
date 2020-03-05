@@ -20,8 +20,15 @@
   var tagMain = document.querySelector('main');
   var templateSuccess = document.querySelector('#success').content.querySelector('.success');
 
+
+  submitBtn.addEventListener('click', function (evt) {
+    evt.preventDefault();
+    window.backend.upload(onSuccess, new FormData(imgUploadForm));
+    uploadFile.value = '';
+    uploadOverlay.classList.add('hidden');
+  });
+
   var onSuccess = function () {
-    console.log('done');
     var reportSuccess = templateSuccess.cloneNode(true);
     tagMain.appendChild(reportSuccess);
 
@@ -31,6 +38,7 @@
         document.removeEventListener('keydown', onSuccessKeyDown);
       }
     };
+
     reportSuccess.addEventListener('click', function (evt) {
       if (evt.target.classList.contains('success') || evt.target.classList.contains('success__button')) {
         tagMain.removeChild(reportSuccess);
@@ -40,11 +48,6 @@
 
     document.removeEventListener('keydown', onSuccessKeyDown);
   };
-
-  submitBtn.addEventListener('click', function (evt) {
-    evt.preventDefault();
-    window.backend.upload(onSuccess, new FormData(imgUploadForm));
-  });
 
   textDescription.addEventListener('invalid', function () {
     if (textDescription.validity.tooLong) {
