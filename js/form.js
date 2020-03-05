@@ -20,7 +20,6 @@
   var tagMain = document.querySelector('main');
   var templateSuccess = document.querySelector('#success').content.querySelector('.success');
 
-
   submitBtn.addEventListener('click', function (evt) {
     evt.preventDefault();
     window.backend.upload(onSuccess, new FormData(imgUploadForm));
@@ -31,6 +30,7 @@
   var onSuccess = function () {
     var reportSuccess = templateSuccess.cloneNode(true);
     tagMain.appendChild(reportSuccess);
+
 
     var onSuccessKeyDown = function (evt) {
       if (evt.key === window.utils.ESC_KEY) {
@@ -44,8 +44,8 @@
         tagMain.removeChild(reportSuccess);
         document.removeEventListener('keydown', onSuccessKeyDown);
       }
-    });
 
+    });
     document.removeEventListener('keydown', onSuccessKeyDown);
   };
 
@@ -58,7 +58,7 @@
   });
 
   imgUploadCancel.addEventListener('click', function () {
-    imgUploadOverlay.classList.add('hidden');
+    imgUploadForm.reset();
     bodyDocument.classList.remove('modal-open');
   });
 
