@@ -10,7 +10,7 @@
     userElement.querySelector('.picture__likes').textContent = picture.likes;
 
     userElement.addEventListener('click', function () {
-      window.bigPicture.render(picture);
+      window.bigPicture(picture);
     });
     return userElement;
   };
