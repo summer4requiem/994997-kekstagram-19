@@ -21,9 +21,9 @@
   var templateSuccess = document.querySelector('#success').content.querySelector('.success');
 
   submitBtn.addEventListener('click', function (evt) {
+    imgUploadForm.reset();
     evt.preventDefault();
     window.backend.upload(onSuccess, new FormData(imgUploadForm));
-    uploadFile.value = '';
     uploadOverlay.classList.add('hidden');
   });
 
@@ -59,7 +59,9 @@
 
   imgUploadCancel.addEventListener('click', function () {
     imgUploadForm.reset();
+    uploadFile.value = '';
     bodyDocument.classList.remove('modal-open');
+    uploadOverlay.classList.add('hidden');
   });
 
   uploadFile.addEventListener('click', function () {
@@ -95,7 +97,6 @@
   };
 
   effectLevel.classList.add('hidden');
-  // события на эффекты
   effectsRadio.forEach(function (element) {
     element.addEventListener('change', onChangeEffectRadio);
   });

@@ -52,6 +52,7 @@
     for (var i = 0; i < userData.comments.length; i++) {
       socialComments.appendChild(generateFullScreenComment(userData.comments[i]));
     }
+
     fullScreenPreview.classList.remove('hidden');
     document.addEventListener('keydown', onBigPictureEscKeyDown);
     bigPictureCancel.addEventListener('click', onBigPictureCancel);
