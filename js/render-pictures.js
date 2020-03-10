@@ -5,7 +5,7 @@
 
   var renderPicture = function (picture) {
     var userElement = templatePicture.cloneNode(true);
-    userElement.querySelector('.picture__img').setAttribute('src', picture.url);
+    userElement.querySelector('.picture__img').src = picture.url;
     userElement.querySelector('.picture__comments').textContent = picture.comments.length;
     userElement.querySelector('.picture__likes').textContent = picture.likes;
 
@@ -19,7 +19,6 @@
     var fragmentPicture = document.createDocumentFragment();
     for (var i = 0; i < arr.length; i++) {
       var pictureElement = renderPicture(arr[i]);
-      pictureElement.setAttribute('data-num', i);
       fragmentPicture.appendChild(pictureElement);
     }
     return fragmentPicture;
@@ -29,8 +28,8 @@
     similarPictures.appendChild(generatePictureFragment(fragment));
   };
 
-  window.render = {
+  window.renderPicture = {
     appendPicture: appendPicture,
-    renderPicture: renderPicture
+    render: renderPicture
   };
 })();
