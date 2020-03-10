@@ -3,12 +3,12 @@
   var filtersForm = document.querySelector('.img-filters__form');
   var filterButtons = filtersForm.querySelectorAll('.img-filters__button');
 
-  // var deletePictures = function () {
-  //   var pictures = document.querySelectorAll('.picture');
-  //   for (var i = 0; i < pictures.length; i++) {
-  //     pictures[i].remove();
-  //   }
-  // };
+  var deletePictures = function () {
+    var pictures = document.querySelectorAll('.picture');
+    for (var i = 0; i < pictures.length; i++) {
+      pictures[i].remove();
+    }
+  };
 
   var randomPhotos = function (array) {
     var random = [];
@@ -29,12 +29,12 @@
     return window.photos;
   };
 
-  // var changeFilter = window.debounce(function (cb) {
-  //   var arrayCopy = window.photos.slice();
-  //   var data = cb(arrayCopy);
-  //   deletePictures();
-  //   window.render.appendPicture(data);
-  // });
+  var changeFilter = window.debounce(function (cb) {
+    var arrayCopy = window.photos.slice();
+    var data = cb(arrayCopy);
+    deletePictures();
+    window.renderPicture.appendPicture(data);
+  });
 
 
   var activeBtnFilter = function (evt) {
@@ -42,7 +42,9 @@
       filterButtons[i].classList.remove('img-filters__button--active');
     }
     evt.target.classList.add('img-filters__button--active');
+    activeBtnFilter(evt);
   };
+
 
   filtersForm.addEventListener('click', function (evt) {
     if (evt.target.classList.contains('img-filters__button') && !evt.target.classList.contains('img-filters__button--active')) {
