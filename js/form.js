@@ -19,18 +19,33 @@
   var textDescription = imageUpload.querySelector('.text__description');
   var tagMain = document.querySelector('main');
   var templateSuccess = document.querySelector('#success').content.querySelector('.success');
+  var textHashtags = document.querySelector('.text__hashtags');
+  var defaultFilter = document.querySelector('#effect-none');
+  var scaleValue = imageUpload.querySelector('.scale__control--value');
+
+
+  var сloseEditor = function () {
+    uploadOverlay.classList.add('hidden');
+    imgUploadPreview.removeAttribute('class');
+    imgUploadPreview.removeAttribute('style');
+    effectLevelPin.style.left = '20%';
+    effecIntensity.style.width = '20%';
+    textDescription.value = '';
+    textHashtags.value = '';
+    defaultFilter.checked = true;
+    scaleValue.value = '100%';
+
+  };
 
   submitBtn.addEventListener('click', function (evt) {
     evt.preventDefault();
     window.backend.upload(onSuccess, new FormData(imgUploadForm));
-    uploadFile.value = '';
-    uploadOverlay.classList.add('hidden');
+    сloseEditor();
   });
 
   var onSuccess = function () {
     var reportSuccess = templateSuccess.cloneNode(true);
     tagMain.appendChild(reportSuccess);
-
 
     var onSuccessKeyDown = function (evt) {
       if (evt.key === window.utils.ESC_KEY) {
@@ -44,7 +59,6 @@
         tagMain.removeChild(reportSuccess);
         document.removeEventListener('keydown', onSuccessKeyDown);
       }
-
     });
     document.removeEventListener('keydown', onSuccessKeyDown);
   };
@@ -57,10 +71,8 @@
     }
   });
 
-  imgUploadCancel.addEventListener('click', function () {
-    imgUploadForm.reset();
-    bodyDocument.classList.remove('modal-open');
-  });
+  imgUploadCancel.addEventListener('click', сloseEditor());
+  // bodyDocument.classList.remove('modal-open');
 
   uploadFile.addEventListener('click', function () {
     uploadOverlay.classList.remove('hidden');
@@ -95,7 +107,6 @@
   };
 
   effectLevel.classList.add('hidden');
-  // события на эффекты
   effectsRadio.forEach(function (element) {
     element.addEventListener('change', onChangeEffectRadio);
   });

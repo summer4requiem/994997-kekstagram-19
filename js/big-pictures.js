@@ -47,18 +47,18 @@
     fullScreenPreview.querySelector('.big-picture__img img').alt = userData.description;
     fullScreenPreview.querySelector('.social__caption').textContent = userData.description;
     fullScreenPreview.querySelector('.likes-count').textContent = userData.likes;
-    fullScreenPreview.querySelector('.comments-count').textContent = userData.length;
+    fullScreenPreview.querySelector('.comments-count').textContent = userData.comments.length;
 
     for (var i = 0; i < userData.comments.length; i++) {
       socialComments.appendChild(generateFullScreenComment(userData.comments[i]));
     }
+
     fullScreenPreview.classList.remove('hidden');
     document.addEventListener('keydown', onBigPictureEscKeyDown);
     bigPictureCancel.addEventListener('click', onBigPictureCancel);
   };
 
-  window.bigPicture = {
-    render: renderFullScreenPhoto
-  };
+  window.bigPicture = renderFullScreenPhoto;
+
 
 })();
