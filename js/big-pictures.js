@@ -6,6 +6,8 @@
   var bigPictureCancel = fullScreenPreview.querySelector('.big-picture__cancel');
   var fullScreenPhoto = document.querySelector('.big-picture');
   var bodyDocument = document.querySelector('body');
+  var commentsLoader = document.querySelector('.social__comments-loader');
+  var MAX_VISIBLE_COMMENTS = 3;
 
 
   var onBigPictureCancel = function () {
@@ -49,9 +51,15 @@
     fullScreenPreview.querySelector('.likes-count').textContent = userData.likes;
     fullScreenPreview.querySelector('.comments-count').textContent = userData.comments.length;
 
-    for (var i = 0; i < userData.comments.length; i++) {
+    for (var i = 0; i < MAX_VISIBLE_COMMENTS; i++) {
       socialComments.appendChild(generateFullScreenComment(userData.comments[i]));
     }
+
+    commentsLoader.addEventListener('click', function () {
+      for (var j = 0; j < 5; j++) {
+        socialComments.appendChild(generateFullScreenComment(userData.comments[j]));
+      }
+    });
 
     fullScreenPreview.classList.remove('hidden');
     document.addEventListener('keydown', onBigPictureEscKeyDown);

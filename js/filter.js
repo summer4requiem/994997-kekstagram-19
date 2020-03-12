@@ -1,5 +1,6 @@
 'use strict';
 (function () {
+  var MAX_RANDOM_PHOTO = 10;
   var filtersForm = document.querySelector('.img-filters__form');
   var filterButtons = filtersForm.querySelectorAll('.img-filters__button');
 
@@ -12,7 +13,7 @@
 
   var randomPhotos = function (array) {
     var random = [];
-    for (var i = 0; i < 10; i++) {
+    for (var i = 0; i < MAX_RANDOM_PHOTO; i++) {
       var index = window.utils.getRandomNumber(0, array.length);
       random.push(array[index]);
     }
