@@ -72,7 +72,6 @@
   });
 
   imgUploadCancel.addEventListener('click', сloseEditor());
-  // bodyDocument.classList.remove('modal-open');
 
   uploadFile.addEventListener('click', function () {
     uploadOverlay.classList.remove('hidden');
