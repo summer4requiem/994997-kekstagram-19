@@ -3,12 +3,13 @@
 (function () {
   var fullScreenPreview = document.querySelector('.big-picture');
   var socialComments = document.querySelector('.social__comments');
+  var loadedComents = fullScreenPreview.querySelector('.comments-loaded');
   var bigPictureCancel = fullScreenPreview.querySelector('.big-picture__cancel');
   var fullScreenPhoto = document.querySelector('.big-picture');
   var bodyDocument = document.querySelector('body');
   var commentsLoader = document.querySelector('.social__comments-loader');
   var MAX_VISIBLE_COMMENTS = 3;
-
+  var MAX_ADDED_COMMENTS = 5;
 
   var onBigPictureCancel = function () {
     bodyDocument.classList.remove('modal-open');
@@ -19,7 +20,6 @@
   var onBigPictureEscKeyDown = function (evt) {
     if (evt.key === window.utils.ESC_KEY) {
       fullScreenPreview.classList.add('hidden');
-      fullScreenPhoto.classList.remove('overlay');
       bodyDocument.classList.remove('modal-open');
       document.removeEventListener('keydown', onBigPictureEscKeyDown);
     }
@@ -44,7 +44,14 @@
     return container;
   };
 
+  var updateComments = function () {
+    socialComments.innerHTML = '';
+    loadedComents.textContent = socialComments.childElementCount + MAX_VISIBLE_COMMENTS;
+    commentsLoader.classList.remove('hidden');
+  };
+
   var renderFullScreenPhoto = function (userData) {
+    updateComments();
     fullScreenPreview.querySelector('.big-picture__img img').src = userData.url;
     fullScreenPreview.querySelector('.big-picture__img img').alt = userData.description;
     fullScreenPreview.querySelector('.social__caption').textContent = userData.description;
@@ -56,8 +63,11 @@
     }
 
     commentsLoader.addEventListener('click', function () {
-      for (var j = 0; j < 5; j++) {
+      for (var j = 0; j < MAX_ADDED_COMMENTS; j++) {
         socialComments.appendChild(generateFullScreenComment(userData.comments[j]));
+      }
+      if (socialComments.childElementCount >= userData.comments.length) {
+        commentsLoader.classList.add('hidden');
       }
     });
 
@@ -67,6 +77,4 @@
   };
 
   window.bigPicture = renderFullScreenPhoto;
-
-
 })();
