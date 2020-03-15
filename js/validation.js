@@ -5,7 +5,6 @@
   var MAX_HASHTAG_LENGTH = 20;
   var textHashtags = document.querySelector('.text__hashtags');
   textHashtags.addEventListener('input', function () {
-
     var inputText = textHashtags.value.toLowerCase().trim();
     if (!inputText) {
       return;
@@ -15,7 +14,6 @@
     var inputArray = inputText.split(/\s+/);
 
     var isStartNoHashTag = inputArray.some(function (item) {
-
       return item[0] !== '#';
     });
 
@@ -49,6 +47,6 @@
     if (inputArray.length > MAX_HASHTAGS) {
       textHashtags.setCustomValidity('нельзя указать больше 5 хеш-тегов');
     }
-  });
 
+  });
 })();
