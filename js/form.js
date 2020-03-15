@@ -24,8 +24,8 @@
   var scaleValue = imageUpload.querySelector('.scale__control--value');
 
 
-  var сloseEditor = function () {
-    uploadOverlay.classList.add('hidden');
+  var onCloseEditor = function () {
+    imgUploadOverlay.classList.add('hidden');
     imgUploadPreview.removeAttribute('class');
     imgUploadPreview.removeAttribute('style');
     effectLevelPin.style.left = '20%';
@@ -34,13 +34,12 @@
     textHashtags.value = '';
     defaultFilter.checked = true;
     scaleValue.value = '100%';
-
   };
 
   submitBtn.addEventListener('click', function (evt) {
     evt.preventDefault();
     window.backend.upload(onSuccess, new FormData(imgUploadForm));
-    сloseEditor();
+    onCloseEditor();
   });
 
   var onSuccess = function () {
@@ -63,6 +62,7 @@
     document.removeEventListener('keydown', onSuccessKeyDown);
   };
 
+
   textDescription.addEventListener('invalid', function () {
     if (textDescription.validity.tooLong) {
       textDescription.setCustomValidity('Максимальная длина комментария');
@@ -71,7 +71,7 @@
     }
   });
 
-  imgUploadCancel.addEventListener('click', сloseEditor());
+  imgUploadCancel.addEventListener('click', onCloseEditor);
 
   uploadFile.addEventListener('click', function () {
     uploadOverlay.classList.remove('hidden');
