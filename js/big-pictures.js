@@ -10,6 +10,7 @@
   var bigPictureCancel = fullScreenPreview.querySelector('.big-picture__cancel');
   var commentsLoader = document.querySelector('.social__comments-loader');
 
+
   var onBigPictureCancel = function () {
     bodyDocument.classList.remove('modal-open');
     fullScreenPreview.classList.add('hidden');
@@ -44,6 +45,7 @@
   };
 
   var updateComments = function () {
+    loadedComents.textContent = MAX_ADDED_COMMENTS;
     socialComments.innerHTML = '';
     commentsLoader.classList.remove('hidden');
   };
@@ -76,10 +78,11 @@
       loadedComents.textContent = currentNum;
     });
 
+
     fullScreenPreview.classList.remove('hidden');
     document.addEventListener('keydown', onBigPictureEscKeyDown);
     bigPictureCancel.addEventListener('click', onBigPictureCancel);
   };
-
   window.bigPicture = renderFullScreenPhoto;
+
 })();
