@@ -1,17 +1,18 @@
 'use strict';
 
 (function () {
+  var Zoom = {
+    MIN: 25,
+    MAX: 100,
+    STEP: 25
+  };
+
   var imageUpload = document.querySelector('.img-upload');
   var scaleSmoller = imageUpload.querySelector('.scale__control--smaller');
   var scaleBigger = imageUpload.querySelector('.scale__control--bigger');
   var scaleValue = imageUpload.querySelector('.scale__control--value');
   var imgUploadPreview = imageUpload.querySelector('.img-upload__preview');
 
-  var Zoom = {
-    MIN: 25,
-    MAX: 100,
-    STEP: 25
-  };
 
   var changeZoom = function (sign) {
     var zoom = parseInt(scaleValue.value, 10);
@@ -26,7 +27,7 @@
       zoom = Zoom.MIN;
     }
 
-    imgUploadPreview.style.transform = 'scale(' + (zoom / 100) + ')';
+    imgUploadPreview.style.transform = 'scale(' + (zoom / Zoom.MAX) + ')';
     scaleValue.value = zoom + '%';
   };
 

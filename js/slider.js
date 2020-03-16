@@ -1,13 +1,14 @@
 'use strict';
 (function () {
+  var MAX_PERСENT = 100;
+  var EFFECT_DEFAULT_PERCENT = 1;
+  var PHOBOS_MAX = 3;
+  var HEAT = 2;
+
   var pin = document.querySelector('.effect-level__pin');
   var saturationLine = document.querySelector('.effect-level__depth');
   var imgUploadPreview = document.querySelector('.img-upload__preview');
   var effectLevelValue = document.querySelector('.effect-level__value');
-  var MAX_PERСENT = 100;
-  var EFFECT_DEFAULT_PERCENT = 1;
-  var phobosMax = 3;
-
 
   var Effects = {
     'chrome': function (value) {
@@ -20,10 +21,10 @@
       return 'invert' + '(' + value / MAX_PERСENT + ')';
     },
     'phobos': function (value) {
-      return 'blur' + '(' + phobosMax * (value / MAX_PERСENT) + 'px)';
+      return 'blur' + '(' + PHOBOS_MAX * (value / MAX_PERСENT) + 'px)';
     },
     'heat': function (value) {
-      return 'brightness' + '(' + 2 * (value / MAX_PERСENT) + EFFECT_DEFAULT_PERCENT + ')';
+      return 'brightness' + '(' + HEAT * (value / MAX_PERСENT) + EFFECT_DEFAULT_PERCENT + ')';
     },
   };
 
@@ -31,6 +32,7 @@
     downEvt.preventDefault();
     var startCoords = downEvt.clientX;
     var saturationWidth = 453;
+
 
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
@@ -43,11 +45,13 @@
         shiftLeft = saturationWidth;
       }
 
+      var moveLeft = shiftLeft + 'px';
+
       var levelValue = Math.round(shiftLeft * MAX_PERСENT / saturationWidth);
       imgUploadPreview.style.filter = Effects[window.currentFilter().replace('effects__preview--', '')](levelValue);
       effectLevelValue.value = levelValue;
-      pin.style.left = shiftLeft + 'px';
-      saturationLine.style.width = shiftLeft + 'px';
+      pin.style.left = moveLeft;
+      saturationLine.style.width = moveLeft;
     };
 
     var onMouseUp = function (Upevt) {

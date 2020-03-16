@@ -1,19 +1,17 @@
 'use strict';
 (function () {
-  // модуль, который работает с формой редактирования изображения.
   var currentFilter = '';
-  var imgUploadForm = document.querySelector('.img-upload__form');
-  var effectLevelPin = document.querySelector('.effect-level__pin');
-  var effectValue = document.querySelector('.effect-level__value');
-  var effecIntensity = document.querySelector('.effect-level__depth');
-  var effectsRadio = document.querySelectorAll('.effects__radio');
   var imageUpload = document.querySelector('.img-upload');
-  var effectLevel = imageUpload.querySelector('.effect-level');
+  var imgUploadForm = imageUpload.querySelector('.img-upload__form');
+  var effectLevelPin = imageUpload.querySelector('.effect-level__pin');
   var imgUploadPreview = imageUpload.querySelector('.img-upload__preview');
+  var effectValue = imageUpload.querySelector('.effect-level__value');
+  var effecIntensity = imageUpload.querySelector('.effect-level__depth');
+  var effectsRadio = document.querySelectorAll('.effects__radio');
+  var effectLevel = imageUpload.querySelector('.effect-level');
   var imgUploadCancel = document.querySelector('.img-upload__cancel');
-  var uploadFile = document.querySelector('.img-upload__input');
+  var uploadFile = imageUpload.querySelector('.img-upload__input');
   var submitBtn = imgUploadForm.querySelector('.img-upload__submit');
-  var uploadOverlay = document.querySelector('.img-upload__overlay');
   var imgUploadOverlay = imageUpload.querySelector('.img-upload__overlay');
   var bodyDocument = document.querySelector('body');
   var textDescription = imageUpload.querySelector('.text__description');
@@ -74,7 +72,7 @@
   imgUploadCancel.addEventListener('click', onCloseEditor);
 
   uploadFile.addEventListener('click', function () {
-    uploadOverlay.classList.remove('hidden');
+    imgUploadOverlay.classList.remove('hidden');
     document.addEventListener('keydown', onUploadEscKeyDown);
   });
 

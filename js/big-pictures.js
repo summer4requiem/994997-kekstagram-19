@@ -1,18 +1,18 @@
 'use strict';
 // отрисовка большой фотографии
 (function () {
+  var MAX_ADDED_COMMENTS = 5;
+
+  var bodyDocument = document.querySelector('body');
   var fullScreenPreview = document.querySelector('.big-picture');
-  var socialComments = document.querySelector('.social__comments');
+  var socialComments = fullScreenPreview.querySelector('.social__comments');
   var loadedComents = fullScreenPreview.querySelector('.comments-loaded');
   var bigPictureCancel = fullScreenPreview.querySelector('.big-picture__cancel');
-  var fullScreenPhoto = document.querySelector('.big-picture');
-  var bodyDocument = document.querySelector('body');
   var commentsLoader = document.querySelector('.social__comments-loader');
-  var MAX_ADDED_COMMENTS = 5;
 
   var onBigPictureCancel = function () {
     bodyDocument.classList.remove('modal-open');
-    fullScreenPhoto.classList.add('hidden');
+    fullScreenPreview.classList.add('hidden');
     document.removeEventListener('click', onBigPictureCancel);
   };
 

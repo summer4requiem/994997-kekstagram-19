@@ -3,6 +3,7 @@
 (function () {
   var MAX_HASHTAGS = 5;
   var MAX_HASHTAG_LENGTH = 20;
+
   var textHashtags = document.querySelector('.text__hashtags');
   textHashtags.addEventListener('input', function () {
     var inputText = textHashtags.value.toLowerCase().trim();
