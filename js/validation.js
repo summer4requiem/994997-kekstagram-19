@@ -3,6 +3,7 @@
 (function () {
   var MAX_HASHTAGS = 5;
   var MAX_HASHTAG_LENGTH = 20;
+  var imgUploadForm = document.querySelector('.img-upload__form');
 
   var textHashtags = document.querySelector('.text__hashtags');
   textHashtags.addEventListener('input', function () {
@@ -49,5 +50,10 @@
       textHashtags.setCustomValidity('нельзя указать больше 5 хеш-тегов');
     }
 
+    if (!imgUploadForm.checkValidity()) {
+      textHashtags.style.border = '3px solid #FF0000';
+    } else {
+      textHashtags.style.border = '3px solid #FFFFFF';
+    }
   });
 })();

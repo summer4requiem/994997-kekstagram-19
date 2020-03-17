@@ -1,9 +1,9 @@
-
 'use strict';
 (function () {
   var FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
   var fileChooser = document.querySelector('.img-upload__input');
   var preview = document.querySelector('.img-upload__preview img');
+  var miniature = document.querySelectorAll('.effects__preview');
 
   fileChooser.addEventListener('change', function () {
     var file = fileChooser.files[0];
@@ -18,10 +18,12 @@
 
       reader.addEventListener('load', function () {
         preview.src = reader.result;
+        for (var i = 0; i < miniature.length; i++) {
+          miniature[i].style.backgroundImage = 'url(' + preview.src + ')';
+        }
       });
 
       reader.readAsDataURL(file);
     }
   });
 })();
-

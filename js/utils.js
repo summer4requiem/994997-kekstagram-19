@@ -6,13 +6,13 @@
     return Math.floor(Math.random() * (max - min) + min);
   };
 
-  var getRandomElement = function (array) {
-    return array[getRandomNumber(0, array.length)];
-  };
+  // var getRandomElement = function (array) {
+  //   return array[getRandomNumber(0, array.length)];
+  // };
 
   window.utils = {
     getRandomNumber: getRandomNumber,
-    getRandomElement: getRandomElement,
+    // getRandomElement: getRandomElement,
     ESC_KEY: ESC_KEY
   };
 

@@ -1,24 +1,23 @@
 'use strict';
 (function () {
   var currentFilter = '';
+  var tagMain = document.querySelector('main');
   var imageUpload = document.querySelector('.img-upload');
   var imgUploadForm = imageUpload.querySelector('.img-upload__form');
   var effectLevelPin = imageUpload.querySelector('.effect-level__pin');
   var imgUploadPreview = imageUpload.querySelector('.img-upload__preview');
   var effectValue = imageUpload.querySelector('.effect-level__value');
   var effecIntensity = imageUpload.querySelector('.effect-level__depth');
-  var effectsRadio = document.querySelectorAll('.effects__radio');
+  var effectsRadio = imgUploadForm.querySelectorAll('.effects__radio');
   var effectLevel = imageUpload.querySelector('.effect-level');
-  var imgUploadCancel = document.querySelector('.img-upload__cancel');
+  var imgUploadCancel = imgUploadForm.querySelector('.img-upload__cancel');
   var uploadFile = imageUpload.querySelector('.img-upload__input');
   var submitBtn = imgUploadForm.querySelector('.img-upload__submit');
   var imgUploadOverlay = imageUpload.querySelector('.img-upload__overlay');
-  var bodyDocument = document.querySelector('body');
   var textDescription = imageUpload.querySelector('.text__description');
-  var tagMain = document.querySelector('main');
   var templateSuccess = document.querySelector('#success').content.querySelector('.success');
-  var textHashtags = document.querySelector('.text__hashtags');
-  var defaultFilter = document.querySelector('#effect-none');
+  var textHashtags = imageUpload.querySelector('.text__hashtags');
+  var defaultFilter = imgUploadForm.querySelector('#effect-none');
   var scaleValue = imageUpload.querySelector('.scale__control--value');
 
 
@@ -34,7 +33,7 @@
     scaleValue.value = '100%';
   };
 
-  submitBtn.addEventListener('click', function (evt) {
+  submitBtn.addEventListener('submit', function (evt) {
     evt.preventDefault();
     window.backend.upload(onSuccess, new FormData(imgUploadForm));
     onCloseEditor();
@@ -79,7 +78,7 @@
   var onUploadEscKeyDown = function (evt) {
     if (evt.key === window.utils.ESC_KEY && !evt.target.classList.contains('text__hashtags') && !evt.target.classList.contains('text__description')) {
       imgUploadOverlay.classList.add('hidden');
-      bodyDocument.classList.remove('modal-open');
+      document.body.classList.remove('modal-open');
       document.removeEventListener('keydown', onUploadEscKeyDown);
     }
   };
