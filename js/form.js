@@ -33,8 +33,7 @@
     scaleValue.value = '100%';
   };
 
-  submitBtn.addEventListener('submit', function (evt) {
-    evt.preventDefault();
+  submitBtn.addEventListener('submit', function () {
     window.backend.upload(onSuccess, new FormData(imgUploadForm));
     onCloseEditor();
   });
