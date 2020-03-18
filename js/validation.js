@@ -3,23 +3,23 @@
   var MAX_HASHTAGS = 5;
   var MAX_HASHTAG_LENGTH = 20;
   var imgUploadForm = document.querySelector('.img-upload__form');
-  var DEFAULT_BORDER = '3px solid #FFFFFF';
+  var DEFAULT_BORDER = 'none';
+  var ERROR_BORDER = '3px solid red';
 
 
   var textHashtags = document.querySelector('.text__hashtags');
   textHashtags.addEventListener('input', function () {
-    if (textHashtags.value === '#') {
-      textHashtags.setCustomValidity('хеш-тег не может состоять только из одной решётки ');
-    }
 
     var inputText = textHashtags.value.toLowerCase().trim();
+
+    var inputArray = inputText.split(/\s+/);
+
+    textHashtags.setCustomValidity('');
+
     if (!inputText) {
-      textHashtags.setCustomValidity('');
       textHashtags.style.border = DEFAULT_BORDER;
       return;
     }
-
-    var inputArray = inputText.split(/\s+/);
 
     var isStartNoHashTag = inputArray.some(function (item) {
       return item[0] !== '#';
@@ -27,6 +27,14 @@
 
     if (isStartNoHashTag) {
       textHashtags.setCustomValidity('хэш-тег должен начинаться с символа #');
+    }
+
+    var isHashTagOnly = inputArray.some(function (item) {
+      return item === '#';
+    });
+
+    if (isHashTagOnly) {
+      textHashtags.setCustomValidity('хеш-тег не может состоять только из одной решётки ');
     }
 
     var isSplitSpaceHashtag = inputArray.some(function (item) {
@@ -57,10 +65,7 @@
       textHashtags.setCustomValidity('нельзя указать больше 5 хеш-тегов');
     }
 
-    if (!imgUploadForm.checkValidity()) {
-      textHashtags.style.border = '3px solid #FF0000';
-    } else {
-      textHashtags.style.border = DEFAULT_BORDER;
-    }
+    textHashtags.style.border = imgUploadForm.checkValidity() ? DEFAULT_BORDER : ERROR_BORDER;
+
   });
 })();
