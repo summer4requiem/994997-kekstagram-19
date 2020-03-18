@@ -3,14 +3,22 @@
   var MAX_HASHTAGS = 5;
   var MAX_HASHTAG_LENGTH = 20;
   var imgUploadForm = document.querySelector('.img-upload__form');
+  var DEFAULT_BORDER = '3px solid #FFFFFF';
 
   var textHashtags = document.querySelector('.text__hashtags');
   textHashtags.addEventListener('input', function () {
     var inputText = textHashtags.value.toLowerCase().trim();
     if (!inputText) {
+      textHashtags.setCustomValidity('');
+      textHashtags.style.border = DEFAULT_BORDER;
       return;
     }
-    textHashtags.setCustomValidity('');
+
+    if (textHashtags.value === '#') {
+      textHashtags.setCustomValidity('хеш-тег не может состоять только из одной решётки ');
+      console.log(textHashtags.value);
+    }
+    console.log(textHashtags.value);
 
     var inputArray = inputText.split(/\s+/);
 
@@ -45,6 +53,7 @@
     if (isLongHashTag) {
       textHashtags.setCustomValidity('максимальная длина одного хэш-тега 20 символов, включая решетку');
     }
+
     if (inputArray.length > MAX_HASHTAGS) {
       textHashtags.setCustomValidity('нельзя указать больше 5 хеш-тегов');
     }
@@ -52,7 +61,7 @@
     if (!imgUploadForm.checkValidity()) {
       textHashtags.style.border = '3px solid #FF0000';
     } else {
-      textHashtags.style.border = '3px solid #FFFFFF';
+      textHashtags.style.border = DEFAULT_BORDER;
     }
   });
 })();
