@@ -5,20 +5,19 @@
   var imgUploadForm = document.querySelector('.img-upload__form');
   var DEFAULT_BORDER = '3px solid #FFFFFF';
 
+
   var textHashtags = document.querySelector('.text__hashtags');
   textHashtags.addEventListener('input', function () {
+    if (textHashtags.value === '#') {
+      textHashtags.setCustomValidity('хеш-тег не может состоять только из одной решётки ');
+    }
+
     var inputText = textHashtags.value.toLowerCase().trim();
     if (!inputText) {
       textHashtags.setCustomValidity('');
       textHashtags.style.border = DEFAULT_BORDER;
       return;
     }
-
-    if (textHashtags.value === '#') {
-      textHashtags.setCustomValidity('хеш-тег не может состоять только из одной решётки ');
-      console.log(textHashtags.value);
-    }
-    console.log(textHashtags.value);
 
     var inputArray = inputText.split(/\s+/);
 
