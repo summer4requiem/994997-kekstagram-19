@@ -5,7 +5,7 @@
 
   var successHandler = function (data) {
     window.photos = data;
-    window.renderPicture.appendPicture(data);
+    window.renderPicture.append(data);
     imgFilters.classList.remove('img-filters--inactive');
   };
 

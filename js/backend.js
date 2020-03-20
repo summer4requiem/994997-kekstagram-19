@@ -8,7 +8,6 @@
   var templateError = document.querySelector('#error').content.querySelector('.error');
   var tagMain = document.querySelector('main');
 
-
   var sendRequest = function (onSuccess, onError, url, method) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
@@ -32,7 +31,7 @@
     return xhr;
   };
 
-  var errorHandler = function (errorMessage) {
+  var errorCallback = function (errorMessage) {
     var reporteError = templateError.cloneNode(true);
     templateError.querySelector('.error__title').textContent = errorMessage;
     tagMain.appendChild(reporteError);
@@ -54,19 +53,19 @@
   };
 
   var load = function (onSuccess) {
-    var xhr = sendRequest(onSuccess, errorHandler, GET_URL, 'GET');
+    var xhr = sendRequest(onSuccess, errorCallback, GET_URL, 'GET');
     xhr.send();
   };
 
   var upload = function (onSuccess, data) {
-    var xhr = sendRequest(onSuccess, errorHandler, POST_URL, 'POST');
+    var xhr = sendRequest(onSuccess, errorCallback, POST_URL, 'POST');
     xhr.send(data);
   };
 
   window.backend = {
     load: load,
     upload: upload,
-    onError: errorHandler
+    onError: errorCallback
   };
 })();
 

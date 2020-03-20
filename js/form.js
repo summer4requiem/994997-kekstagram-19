@@ -33,12 +33,13 @@
     scaleValue.value = '100%';
   };
 
-  submitBtn.addEventListener('submit', function () {
-    window.backend.upload(onSuccess, new FormData(imgUploadForm));
+  submitBtn.addEventListener('click', function (evt) {
+    evt.preventDefault();
+    window.backend.upload(successCallback, new FormData(imgUploadForm));
     onCloseEditor();
   });
 
-  var onSuccess = function () {
+  var successCallback = function () {
     var reportSuccess = templateSuccess.cloneNode(true);
     tagMain.appendChild(reportSuccess);
 
@@ -58,19 +59,12 @@
     document.removeEventListener('keydown', onSuccessKeyDown);
   };
 
-
-  textDescription.addEventListener('invalid', function () {
-    if (textDescription.validity.tooLong) {
-      textDescription.setCustomValidity('Максимальная длина комментария');
-    } else {
-      textDescription.setCustomValidity('');
-    }
-  });
-
   imgUploadCancel.addEventListener('click', onCloseEditor);
 
-  uploadFile.addEventListener('click', function () {
-    imgUploadOverlay.classList.remove('hidden');
+  uploadFile.addEventListener('change', function () {
+    if (uploadFile.value !== '') {
+      imgUploadOverlay.classList.remove('hidden');
+    }
     document.addEventListener('keydown', onUploadEscKeyDown);
   });
 
@@ -105,6 +99,7 @@
   effectsRadio.forEach(function (element) {
     element.addEventListener('change', onChangeEffectRadio);
   });
+
 
   window.currentFilter = function () {
     return currentFilter;

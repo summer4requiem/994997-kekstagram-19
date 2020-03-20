@@ -10,7 +10,7 @@
     userElement.querySelector('.picture__likes').textContent = picture.likes;
 
     userElement.addEventListener('click', function () {
-      window.bigPicture(picture);
+      window.bigPicture.render(picture);
     });
     return userElement;
   };
@@ -24,12 +24,13 @@
     return fragmentPicture;
   };
 
+
   var appendPicture = function (fragment) {
     similarPictures.appendChild(generatePictureFragment(fragment));
   };
 
   window.renderPicture = {
-    appendPicture: appendPicture,
+    append: appendPicture,
     render: renderPicture
   };
 })();

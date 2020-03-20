@@ -40,12 +40,10 @@
     }
   };
 
-
   var renderFullScreenPhoto = function (userData) {
     var count = 0;
     var commentsLength = userData.comments.length < MAX_ADDED_COMMENTS ? userData.comments.length : MAX_ADDED_COMMENTS;
     updateComments(commentsLength);
-
     fullScreenPreview.querySelector('.big-picture__img img').src = userData.url;
     fullScreenPreview.querySelector('.big-picture__img img').alt = userData.description;
     fullScreenPreview.querySelector('.social__caption').textContent = userData.description;
@@ -58,9 +56,7 @@
 
     var onCommentsLoaderClick = function () {
       count += MAX_ADDED_COMMENTS;
-
       var currentNum = (count + MAX_ADDED_COMMENTS);
-
       userData.comments.slice(count, currentNum).forEach(function (item) {
         socialComments.appendChild(generateFullScreenComment(item));
       });
@@ -76,21 +72,22 @@
       commentsLoader.addEventListener('click', onCommentsLoaderClick);
     }
 
-    var onBigPictureCancel = function () {
-      document.body.classList.remove('modal-open');
+    var closeBigPicture = function () {
       fullScreenPreview.classList.add('hidden');
+      document.body.classList.remove('modal-open');
       count = 0;
-      document.removeEventListener('click', onBigPictureCancel);
       commentsLoader.removeEventListener('click', onCommentsLoaderClick);
+    };
+
+    var onBigPictureCancel = function () {
+      closeBigPicture();
+      document.removeEventListener('click', onBigPictureCancel);
     };
 
     var onBigPictureEscKeyDown = function (evt) {
       if (evt.key === window.utils.ESC_KEY) {
-        fullScreenPreview.classList.add('hidden');
-        document.body.classList.remove('modal-open');
-        count = 0;
+        closeBigPicture();
         document.removeEventListener('keydown', onBigPictureEscKeyDown);
-        commentsLoader.removeEventListener('click', onCommentsLoaderClick);
       }
     };
 
@@ -98,6 +95,9 @@
     document.addEventListener('keydown', onBigPictureEscKeyDown);
     bigPictureCancel.addEventListener('click', onBigPictureCancel);
   };
-  window.bigPicture = renderFullScreenPhoto;
+
+  window.bigPicture = {
+    render: renderFullScreenPhoto
+  };
 
 })();

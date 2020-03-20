@@ -6,22 +6,17 @@
   var DEFAULT_BORDER = 'none';
   var ERROR_BORDER = '3px solid red';
 
-
   var textHashtags = document.querySelector('.text__hashtags');
   textHashtags.addEventListener('input', function () {
-
     var inputText = textHashtags.value.toLowerCase().trim();
-
-    var inputArray = inputText.split(/\s+/);
-
+    var inputsArray = inputText.split(/\s+/);
     textHashtags.setCustomValidity('');
 
     if (!inputText) {
       textHashtags.style.border = DEFAULT_BORDER;
       return;
     }
-
-    var isStartNoHashTag = inputArray.some(function (item) {
+    var isStartNoHashTag = inputsArray.some(function (item) {
       return item[0] !== '#';
     });
 
@@ -29,7 +24,7 @@
       textHashtags.setCustomValidity('хэш-тег должен начинаться с символа #');
     }
 
-    var isHashTagOnly = inputArray.some(function (item) {
+    var isHashTagOnly = inputsArray.some(function (item) {
       return item === '#';
     });
 
@@ -37,7 +32,7 @@
       textHashtags.setCustomValidity('хеш-тег не может состоять только из одной решётки ');
     }
 
-    var isSplitSpaceHashtag = inputArray.some(function (item) {
+    var isSplitSpaceHashtag = inputsArray.some(function (item) {
       return item.indexOf('#', 1) >= 1;
     });
 
@@ -45,7 +40,7 @@
       textHashtags.setCustomValidity('хэш-теги разделяются пробелами');
     }
 
-    var isRepeatHashTag = inputArray.some(function (item, i, array) {
+    var isRepeatHashTag = inputsArray.some(function (item, i, array) {
       return array.indexOf(item, i + 1) >= i + 1;
     });
 
@@ -53,7 +48,7 @@
       textHashtags.setCustomValidity('один и тот же хеш-тег не может быть использован дважды');
     }
 
-    var isLongHashTag = inputArray.some(function (item) {
+    var isLongHashTag = inputsArray.some(function (item) {
       return item.length > MAX_HASHTAG_LENGTH;
     });
 
@@ -61,7 +56,7 @@
       textHashtags.setCustomValidity('максимальная длина одного хэш-тега 20 символов, включая решетку');
     }
 
-    if (inputArray.length > MAX_HASHTAGS) {
+    if (inputsArray.length > MAX_HASHTAGS) {
       textHashtags.setCustomValidity('нельзя указать больше 5 хеш-тегов');
     }
 

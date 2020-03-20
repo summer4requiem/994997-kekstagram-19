@@ -12,12 +12,13 @@
   };
 
   var mixPhotos = function (array) {
-    var random = [];
+    var randoms = [];
     for (var i = 0; i < MAX_RANDOM_PHOTO; i++) {
       var index = window.utils.getRandomNumber(0, array.length);
-      random.push(array[index]);
+      randoms.push(array[index]);
+      array.splice(index, 1);
     }
-    return random;
+    return randoms;
   };
 
   var sortComments = function (array) {
@@ -34,16 +35,15 @@
     var arrayCopy = window.photos.slice();
     var data = cb(arrayCopy);
     deletePictures();
-    window.renderPicture.appendPicture(data);
+    window.renderPicture.append(data);
   });
 
 
   var activateBtnFilter = function (evt) {
-    for (var i = 0; i < filterButtons.length; i++) {
-      filterButtons[i].classList.remove('img-filters__button--active');
-    }
+    filterButtons.forEach(function (item) {
+      item.classList.remove('img-filters__button--active');
+    });
     evt.target.classList.add('img-filters__button--active');
-    activateBtnFilter(evt);
   };
 
 

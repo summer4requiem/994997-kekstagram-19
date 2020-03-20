@@ -13,14 +13,16 @@
       return fileName.endsWith(it);
     });
 
+
+    var setBackground = function (item) {
+      item.style.backgroundImage = 'url(' + preview.src + ')';
+    };
+
     if (matches) {
       var reader = new FileReader();
-
       reader.addEventListener('load', function () {
         preview.src = reader.result;
-        for (var i = 0; i < miniature.length; i++) {
-          miniature[i].style.backgroundImage = 'url(' + preview.src + ')';
-        }
+        miniature.forEach(setBackground);
       });
 
       reader.readAsDataURL(file);

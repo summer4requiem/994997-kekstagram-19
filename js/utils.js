@@ -6,7 +6,6 @@
     return Math.floor(Math.random() * (max - min) + min);
   };
 
-
   window.utils = {
     getRandomNumber: getRandomNumber,
     ESC_KEY: ESC_KEY
