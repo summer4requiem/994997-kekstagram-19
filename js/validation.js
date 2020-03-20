@@ -16,6 +16,7 @@
       textHashtags.style.border = DEFAULT_BORDER;
       return;
     }
+
     var isStartNoHashTag = inputsArray.some(function (item) {
       return item[0] !== '#';
     });
@@ -30,6 +31,8 @@
 
     if (isHashTagOnly) {
       textHashtags.setCustomValidity('хеш-тег не может состоять только из одной решётки ');
+    } else if (/[^a-zA-Z0-9]/.test(inputsArray.slice(1, (inputsArray.length - 1)))) {
+      textHashtags.setCustomValidity('Строка после решётки должна состоять из букв и чисел и не может содержать пробелы, спецсимволы (#, @, $ и т.п.), символы пунктуации (тире, дефис, запятая и т.п.), эмодзи и т.д.');
     }
 
     var isSplitSpaceHashtag = inputsArray.some(function (item) {

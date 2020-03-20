@@ -31,15 +31,15 @@
     scaleValue.value = zoom + '%';
   };
 
-  var onScaleInc = function () {
+  var onScaleIncrease = function () {
     changeZoom(1);
   };
 
-  var onScaleDec = function () {
+  var onScaleDecrease = function () {
     changeZoom(-1);
   };
 
-  scaleSmoller.addEventListener('click', onScaleDec);
-  scaleBigger.addEventListener('click', onScaleInc);
+  scaleSmoller.addEventListener('click', onScaleDecrease);
+  scaleBigger.addEventListener('click', onScaleIncrease);
 
 })();

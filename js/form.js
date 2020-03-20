@@ -21,7 +21,7 @@
   var scaleValue = imageUpload.querySelector('.scale__control--value');
 
 
-  var onCloseEditor = function () {
+  var onEditorClose = function () {
     imgUploadOverlay.classList.add('hidden');
     imgUploadPreview.removeAttribute('class');
     imgUploadPreview.removeAttribute('style');
@@ -36,7 +36,7 @@
   submitBtn.addEventListener('click', function (evt) {
     evt.preventDefault();
     window.backend.upload(successCallback, new FormData(imgUploadForm));
-    onCloseEditor();
+    onEditorClose();
   });
 
   var successCallback = function () {
@@ -59,7 +59,7 @@
     document.removeEventListener('keydown', onSuccessKeyDown);
   };
 
-  imgUploadCancel.addEventListener('click', onCloseEditor);
+  imgUploadCancel.addEventListener('click', onEditorClose);
 
   uploadFile.addEventListener('change', function () {
     if (uploadFile.value !== '') {
@@ -76,7 +76,7 @@
     }
   };
 
-  var onChangeEffectRadio = function (evt) {
+  var onEffectRadioChange = function (evt) {
     if (currentFilter !== '') {
       imgUploadPreview.classList.remove(currentFilter);
     }
@@ -97,7 +97,7 @@
 
   effectLevel.classList.add('hidden');
   effectsRadio.forEach(function (element) {
-    element.addEventListener('change', onChangeEffectRadio);
+    element.addEventListener('change', onEffectRadioChange);
   });
 
 
