@@ -12,7 +12,6 @@
   var effectLevel = imageUpload.querySelector('.effect-level');
   var imgUploadCancel = imgUploadForm.querySelector('.img-upload__cancel');
   var uploadFile = imageUpload.querySelector('.img-upload__input');
-  var submitBtn = imgUploadForm.querySelector('.img-upload__submit');
   var imgUploadOverlay = imageUpload.querySelector('.img-upload__overlay');
   var textDescription = imageUpload.querySelector('.text__description');
   var templateSuccess = document.querySelector('#success').content.querySelector('.success');
@@ -22,7 +21,6 @@
 
 
   var onEditorClose = function () {
-    imgUploadOverlay.classList.add('hidden');
     imgUploadPreview.removeAttribute('class');
     imgUploadPreview.removeAttribute('style');
     effectLevelPin.style.left = '20%';
@@ -33,10 +31,18 @@
     scaleValue.value = '100%';
   };
 
-  submitBtn.addEventListener('click', function (evt) {
+  uploadFile.addEventListener('change', function () {
+    if (uploadFile.value !== '') {
+      imgUploadOverlay.classList.remove('hidden');
+    }
+    document.addEventListener('keydown', onUploadEscKeyDown);
+  });
+
+  imgUploadForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
     window.backend.upload(successCallback, new FormData(imgUploadForm));
     onEditorClose();
+    imgUploadOverlay.classList.add('hidden');
   });
 
   var successCallback = function () {
@@ -61,12 +67,6 @@
 
   imgUploadCancel.addEventListener('click', onEditorClose);
 
-  uploadFile.addEventListener('change', function () {
-    if (uploadFile.value !== '') {
-      imgUploadOverlay.classList.remove('hidden');
-    }
-    document.addEventListener('keydown', onUploadEscKeyDown);
-  });
 
   var onUploadEscKeyDown = function (evt) {
     if (evt.key === window.utils.ESC_KEY && !evt.target.classList.contains('text__hashtags') && !evt.target.classList.contains('text__description')) {
@@ -99,7 +99,6 @@
   effectsRadio.forEach(function (element) {
     element.addEventListener('change', onEffectRadioChange);
   });
-
 
   window.currentFilter = function () {
     return currentFilter;

@@ -31,8 +31,6 @@
 
     if (isHashTagOnly) {
       textHashtags.setCustomValidity('хеш-тег не может состоять только из одной решётки ');
-    } else if (/[^a-zA-Z0-9]/.test(inputsArray.slice(1, (inputsArray.length - 1)))) {
-      textHashtags.setCustomValidity('Строка после решётки должна состоять из букв и чисел и не может содержать пробелы, спецсимволы (#, @, $ и т.п.), символы пунктуации (тире, дефис, запятая и т.п.), эмодзи и т.д.');
     }
 
     var isSplitSpaceHashtag = inputsArray.some(function (item) {
@@ -51,6 +49,7 @@
       textHashtags.setCustomValidity('один и тот же хеш-тег не может быть использован дважды');
     }
 
+
     var isLongHashTag = inputsArray.some(function (item) {
       return item.length > MAX_HASHTAG_LENGTH;
     });
@@ -62,6 +61,15 @@
     if (inputsArray.length > MAX_HASHTAGS) {
       textHashtags.setCustomValidity('нельзя указать больше 5 хеш-тегов');
     }
+
+    var hasSpecialCharacter = inputsArray.some(function (item) {
+      return item.match(/#.*[^a-zA-Zа-яА-Я0-9]/);
+    });
+
+    if (hasSpecialCharacter) {
+      textHashtags.setCustomValidity('Строка после решётки должна состоять из букв и чисел и не может содержать пробелы, спецсимволы (#, @, $ и т.п.), символы пунктуации (тире, дефис, запятая и т.п.), эмодзи и т.д. ');
+    }
+
 
     textHashtags.style.border = imgUploadForm.checkValidity() ? DEFAULT_BORDER : ERROR_BORDER;
 

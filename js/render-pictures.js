@@ -15,12 +15,13 @@
     return userElement;
   };
 
+
   var generatePictureFragment = function (arr) {
     var fragmentPicture = document.createDocumentFragment();
-    for (var i = 0; i < arr.length; i++) {
-      var pictureElement = renderPicture(arr[i]);
+    arr.forEach(function (el) {
+      var pictureElement = renderPicture(el);
       fragmentPicture.appendChild(pictureElement);
-    }
+    });
     return fragmentPicture;
   };
 
