@@ -21,15 +21,17 @@
 
 
   var onEditorClose = function () {
-    imgUploadPreview.removeAttribute('class');
-    imgUploadPreview.removeAttribute('style');
-    effectLevelPin.style.left = '20%';
-    effecIntensity.style.width = '20%';
+    imgUploadPreview.classList.remove(currentFilter);
+    imgUploadPreview.style = '';
+    effectLevelPin.style.left = '100%';
+    effecIntensity.style.width = '100%';
     textDescription.value = '';
     textHashtags.value = '';
+    textHashtags.style = '';
     defaultFilter.checked = true;
     scaleValue.value = '100%';
     imgUploadOverlay.classList.add('hidden');
+    effectLevel.classList.add('hidden');
   };
 
   uploadFile.addEventListener('change', function () {

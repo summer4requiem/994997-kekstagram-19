@@ -59,8 +59,10 @@
       count += MAX_ADDED_COMMENTS;
       var currentNum = (count + MAX_ADDED_COMMENTS);
       userData.comments.slice(count, currentNum).forEach(function (item) {
-        socialComments.appendChild(generateFullScreenComment(item));
+        fragmentComments.appendChild(generateFullScreenComment(item));
       });
+
+      socialComments.appendChild(fragmentComments);
 
       if (currentNum >= userData.comments.length) {
         currentNum = userData.comments.length;
@@ -69,6 +71,7 @@
       loadedComents.textContent = currentNum;
     };
 
+    // если комментариев меньше 5 не навешиваем событие
     if (commentsLength >= MAX_ADDED_COMMENTS) {
       commentsLoader.addEventListener('click', onCommentsLoaderClick);
     }

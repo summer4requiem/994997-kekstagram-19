@@ -12,7 +12,7 @@
     var inputsArray = inputText.split(/\s+/);
     textHashtags.setCustomValidity('');
 
-    if (!inputText) {
+    if (!inputText || inputsArray[0] === '') {
       textHashtags.style.border = DEFAULT_BORDER;
       return;
     }
@@ -63,7 +63,7 @@
     }
 
     var hasSpecialCharacter = inputsArray.some(function (item) {
-      return item.match(/#.*[^a-zA-Zа-яА-Я0-9]/);
+      return item.match(/#.*?[^a-zа-яё0-9]/i);
     });
 
     if (hasSpecialCharacter) {

@@ -2,7 +2,6 @@
 (function () {
   var MAX_RANDOM_PHOTO = 10;
   var filtersForm = document.querySelector('.img-filters__form');
-  var filterButtons = filtersForm.querySelectorAll('.img-filters__button');
 
   var deletePictures = function () {
     var pictures = document.querySelectorAll('.picture');
@@ -40,9 +39,11 @@
 
 
   var activateBtnFilter = function (evt) {
-    filterButtons.forEach(function (item) {
-      item.classList.remove('img-filters__button--active');
-    });
+    var activeButton = filtersForm.querySelector('.img-filters__button--active');
+    if (activeButton) {
+      activeButton.classList.remove('img-filters__button--active');
+    }
+
     evt.target.classList.add('img-filters__button--active');
   };
 
