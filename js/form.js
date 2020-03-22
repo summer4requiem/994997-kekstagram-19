@@ -29,6 +29,7 @@
     textHashtags.value = '';
     defaultFilter.checked = true;
     scaleValue.value = '100%';
+    imgUploadOverlay.classList.add('hidden');
   };
 
   uploadFile.addEventListener('change', function () {
@@ -39,10 +40,10 @@
   });
 
   imgUploadForm.addEventListener('submit', function (evt) {
-    evt.preventDefault();
     window.backend.upload(successCallback, new FormData(imgUploadForm));
     onEditorClose();
     imgUploadOverlay.classList.add('hidden');
+    evt.preventDefault();
   });
 
   var successCallback = function () {

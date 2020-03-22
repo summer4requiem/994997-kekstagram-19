@@ -7,7 +7,7 @@
   var ERROR_BORDER = '3px solid red';
 
   var textHashtags = document.querySelector('.text__hashtags');
-  textHashtags.addEventListener('input', function () {
+  textHashtags.addEventListener('change', function () {
     var inputText = textHashtags.value.toLowerCase().trim();
     var inputsArray = inputText.split(/\s+/);
     textHashtags.setCustomValidity('');
@@ -70,8 +70,6 @@
       textHashtags.setCustomValidity('Строка после решётки должна состоять из букв и чисел и не может содержать пробелы, спецсимволы (#, @, $ и т.п.), символы пунктуации (тире, дефис, запятая и т.п.), эмодзи и т.д. ');
     }
 
-
     textHashtags.style.border = imgUploadForm.checkValidity() ? DEFAULT_BORDER : ERROR_BORDER;
-
   });
 })();

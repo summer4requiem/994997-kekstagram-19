@@ -32,7 +32,6 @@
   var updateComments = function (count) {
     loadedComents.textContent = count;
     socialComments.innerHTML = '';
-
     if (count >= MAX_ADDED_COMMENTS) {
       commentsLoader.classList.remove('hidden');
     } else {
@@ -50,9 +49,11 @@
     fullScreenPreview.querySelector('.likes-count').textContent = userData.likes;
     fullScreenPreview.querySelector('.comments-count').textContent = userData.comments.length;
 
+    var fragmentComments = document.createDocumentFragment();
     for (var i = 0; i < commentsLength; i++) {
-      socialComments.appendChild(generateFullScreenComment(userData.comments[i]));
+      fragmentComments.appendChild(generateFullScreenComment(userData.comments[i]));
     }
+    socialComments.appendChild(fragmentComments);
 
     var onCommentsLoaderClick = function () {
       count += MAX_ADDED_COMMENTS;
