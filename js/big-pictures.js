@@ -28,7 +28,6 @@
     container.appendChild(text);
     return container;
   };
-  // element.classList.contains(class);
 
   var updateComments = function (count) {
     loadedComents.textContent = count;
